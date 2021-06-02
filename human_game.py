@@ -21,6 +21,10 @@ class Apple:
     def update(self, x, y):
         self.pos.x = x
         self.pos.y = y
+    
+     def draw_position(self, pos_x, pos_y):
+        self.draw_x = pos_x
+        self.draw_y = pos_y
 
 
 class Man:
@@ -74,6 +78,8 @@ class App:
         self.agent = Agent(0, False)
         self.ai_is_play = False
         self.play_music = True
+        self.apple_draw_x = [32, 40]
+        self.apple_draw_y = [0, 8]
         if self.play_music:
             pyxel.playm(1)
         pyxel.run(self.update, self.draw)
@@ -138,6 +144,8 @@ class App:
             apple = Apple(self.img_id0, self.START_SPEED)
             apple.pos.x = random.choice(self.apple_x_pos)
             apple.pos.y = 8
+            apple.draw_x = random.choice(self.apple_draw_x)
+            apple.draw_y = random.choice(self.apple_draw_y)
             self.apples_list.append(apple)
             self.counter = 0
 
@@ -178,7 +186,7 @@ class App:
         pyxel.blt(0, 0, self.img_id0, 0, 48, 250, 150, 12)
         if 0 < len(self.apples_list):
             for apple in self.apples_list:
-                pyxel.blt(apple.pos.x, apple.pos.y, self.img_id0, 32, 8, apple.w, apple.h, 12)
+                pyxel.blt(apple.pos.x, apple.pos.y, self.img_id0, apple.draw_x, apple.draw_y, apple.w, apple.h, 12)
         pyxel.blt(self.man.pos.x, self.man.pos.y, self.img_id0, self.man.draw_x, self.man.draw_y, self.man.w,
                   self.man.h, 12)
 
